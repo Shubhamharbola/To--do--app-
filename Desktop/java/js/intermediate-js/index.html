@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script src="script.js" defer></script>
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">heloo</h1>
+        <button class="btn">Click</button>
+    </div>
+    <h1> users:</h1>
+    <ul>
+
+    </ul>
+<script>
+    fetch('')
+    .then(res=>{
+        return res.text();
+    })
+    .then(data=>{
+        // data.forEach(todo=>{
+            const markup = `<li> ${data}</li>`;
+
+            document.querySelector('ul').insertAdjacentHTML('beforeend',markup);
+        // });
+    })
+    .catch(error=>console.log('error'));
+</script>    
+</body>
+</html>
