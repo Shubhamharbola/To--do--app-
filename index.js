@@ -20,30 +20,25 @@ app.listen(3000,function(){
 // {id :3, text :"buy wax"},
 // ]
 
-app.get('/notes',function(req,res){
-    const data = fs.readFileSync('notes.json')
-    const notes = JSON.parse(data)
-    res.json(notes)})
+app.get('/notes',async function (req,res) {
+    const notes = await Note.find()
+    res.json(notes)
+    
+})
 
 
- app.post('/notes',function(req,res){
-    const data =fs.readFileSync('notes.json')
-      const notes = JSON.parse(data)
-    const newNote = req.body
-    notes.push(newNote)
-    fs.writeFileSync('notes.json',JSON.stringify(notes))
-    res.json({"message":"notes added"})
- })   
+app.post('/notes',async function(req,res){
+    const note = new Note({text:req.body.text})
+    await note.save()
+    res.json({messsage:"note added"})
+})
  
- app.delete('/notes/:id',function(req,res){
-    const data = fs.readFileSync('notes.json')
-    let notes = JSON.parse(data)
-    const id = Number(req.params.id)
-    notes = notes.filter(function(note){
-        return note.id!== id
+ app.delete('/notes/:id',async function(req,res){
+   const id = req.params.id
+  await Note.findByIdAndDelete(id)
+   res.json({messsage :"delted"})
     })
-    fs.writeFileSync('notes.json',JSON.stringify(notes))
-    res.json({"message":"delted"})
- })
+    
+ 
 
  
